@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Safety Pretraining – SafeLM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --c-hero: #eef4ff;
+      --c-models: #f1f5fd;
+      --c-data: #fdf9f1;
+      --c-play: #f1fdf4;
+      --c-eval: #fdf1f7;
+      --c-accent: #3b5bfe;
+      --c-text: #1f2937;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--c-text);
+    }
+    a {
+      color: var(--c-accent);
+      text-decoration: none;
+    }
+    .nav {
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      z-index: 100;
+    }
+    .nav a {font-weight: 600;}
+    section {
+      padding: 4rem 1.5rem;
+    }
+    h1,h2 {margin:0 0 1rem;font-weight:700;}
+    h1 {font-size:2.5rem;line-height:1.2;}
+    h2 {font-size:1.75rem;}
+    .btn {
+      display:inline-block;
+      margin:0.5rem 0.75rem 0.5rem 0;
+      padding:0.75rem 1.25rem;
+      background:var(--c-accent);
+      color:#fff;
+      border-radius:0.5rem;
+      font-weight:600;
+    }
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1.5rem;
+    }
+    .card {
+      background:#fff;
+      padding:1.5rem;
+      border-radius:0.75rem;
+      box-shadow:0 2px 6px rgba(0,0,0,0.05);
+      min-height:180px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    footer {
+      text-align:center;
+      padding:2rem 1.5rem;
+      font-size:0.9rem;
+      color:#6b7280;
+      background:#f9fafb;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="#hero">Home</a>
+    <a href="#models">Models</a>
+    <a href="#data">Datasets</a>
+    <a href="#play">Playground</a>
+    <a href="#eval">Tools</a>
+    <a href="/paper.pdf">Paper PDF</a>
+  </nav>
+
+  <!-- Hero / TLDR -->
+  <section id="hero" style="background:var(--c-hero);">
+    <h1>Safety Pretraining: Toward the Next Generation of Safe AI</h1>
+    <p><strong>Authors:</strong> <span id="authors">Anonymous et al. <em>(replace with camera-ready author list)</em></span></p>
+    <p><em>TL;DR – We embed safety directly into the pre‑training pipeline with data‑centric interventions, delivering the <strong>SafeLM 360M & 1.7B</strong> model family that is natively safe <u>before</u> any RLHF.<br/>Everything (code, data & weights) is <strong>open‑source</strong>.</em></p>
+    <a class="btn" href="https://huggingface.co/spaces/locuslab/safe-playground" target="_blank">🚀 Live Demo</a>
+    <a class="btn" href="https://huggingface.co/locuslab" target="_blank">🔗 Hugging Face Hub</a>
+    <a class="btn" href="https://arxiv.org/abs/240X.XXXX" target="_blank">📄 Read the Paper</a>
+  </section>
+
+  <!-- Models -->
+  <section id="models" style="background:var(--c-models);">
+    <h2>Models & Checkpoints</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>SafeLM‑1.7B</h3>
+        <p>Natively-safe base model – 1.7 B params.</p>
+        <a class="btn" href="https://huggingface.co/locuslab/safelm-1_7b" target="_blank">Download</a>
+      </div>
+      <div class="card">
+        <h3>SafeLM‑360M</h3>
+        <p>Compact variant for edge or research use.</p>
+        <a class="btn" href="https://huggingface.co/locuslab/safelm-360m" target="_blank">Download</a>
+      </div>
+      <div class="card">
+        <h3>Safety Classifier</h3>
+        <p>Lightweight gte‑large‑en model to score web text (0‑5).</p>
+        <a class="btn" href="https://huggingface.co/locuslab/safety-classifier_gte-large-en-v1.5" target="_blank">Download</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data -->
+  <section id="data" style="background:var(--c-data);">
+    <h2>Datasets</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>RefuseWeb</h3>
+        <p>120 M tokens of polite refusals to unsafe requests.</p>
+        <a class="btn" href="https://huggingface.co/datasets/locuslab/refuseweb" target="_blank">HF Link</a>
+      </div>
+      <div class="card">
+        <h3>Moral Education</h3>
+        <p>Context‑rich re‑writes of harmful web text.</p>
+        <a class="btn" href="https://huggingface.co/datasets/locuslab/moral_education" target="_blank">HF Link</a>
+      </div>
+      <div class="card">
+        <h3>Data Safety Report Cards</h3>
+        <p>Standardized dashboards for any dataset release.</p>
+        <a class="btn" href="https://huggingface.co/spaces/locuslab/safety-reportcard" target="_blank">Explore</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Playground -->
+  <section id="play" style="background:var(--c-play);">
+    <h2>Interactive Playground</h2>
+    <p>Chat with SafeLM and probe edge‑cases live.</p>
+    <a class="btn" href="https://huggingface.co/spaces/locuslab/safe-playground" target="_blank">Open Playground</a>
+  </section>
+
+  <!-- Evaluation & Tools -->
+  <section id="eval" style="background:var(--c-eval);">
+    <h2>Evaluation & Code</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Safety Benchmarks</h3>
+        <p>Jailbreak‑Completions & Base Model tests.</p>
+        <a class="btn" href="https://huggingface.co/datasets/locuslab/jb-completions" target="_blank">Dataset</a>
+      </div>
+      <div class="card">
+        <h3>Training Code</h3>
+        <p>Reproducible LitGPT recipes & configs.</p>
+        <a class="btn" href="https://github.com/locuslab/safety-pretraining" target="_blank">GitHub Repo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    Made with ❤️ by the Safety Pretraining team · <a href="https://github.com/locuslab/safety-pretraining" target="_blank">GitHub</a>
+  </footer>
+</body>
+</html>
