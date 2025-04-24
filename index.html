@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Safety Pretraining – SafeLM</title>
+  <title>Safety Pretraining – SafeLM</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -36,12 +36,26 @@
       background: rgba(255, 255, 255, 0.8);
       border-bottom: 1px solid #e5e7eb;
       padding: 0.75rem 1.5rem;
-      font-size: 1.25rem; /* 18px (adjust as needed) */
+      font-size: 1.25rem;
       display: flex;
       gap: 1.5rem;
       z-index: 100;
     }
     .nav a {font-weight: 600;}
+    
+    /* Mobile navigation */
+    .nav-mobile {
+      display: none;
+    }
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      padding: 0.5rem;
+    }
+    
     section {
       padding: 4rem 1.5rem;
     }
@@ -62,10 +76,10 @@
       text-decoration: none;
     }
     .grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,520px));
-      gap:1.5rem;
-      margin: 0;                  /* no auto‐centering */
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin: 0;
     }
     .card {
       background:#fff;
@@ -89,6 +103,7 @@
       align-items: center;
       gap: 0.75rem;
       flex-wrap: wrap;
+      justify-content: center;
     }
     .hero-center {
       max-width: 800px;
@@ -109,9 +124,105 @@
     }
     #authors,
     #tldr {
-      font-size: 1.25rem; /* ~18px; tweak as needed */
+      font-size: 1.25rem;
     }
 
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      .nav {
+        display: none;
+      }
+      
+      .nav-mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom: 1px solid #e5e7eb;
+        padding: 0.75rem 1.5rem;
+        z-index: 100;
+      }
+      
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        font-size: 1.25rem;
+      }
+      
+      .nav-logo img {
+        height: 1.5rem;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      .mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: white;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 200;
+      }
+      
+      .mobile-menu.active {
+        transform: translateX(0);
+      }
+      
+      .close-menu {
+        align-self: flex-end;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      
+      .mobile-menu a {
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      
+      section {
+        padding: 3rem 1rem;
+      }
+      
+      .hero-title h1 {
+        font-size: 2rem;
+      }
+      
+      #authors, #tldr {
+        font-size: 1rem;
+      }
+      
+      .btn {
+        margin: 0.5rem 0.5rem 0.5rem 0;
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .card {
+        min-height: 150px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -124,11 +235,29 @@
     <a href="assets/safety_pretraining.pdf">Paper</a>
   </nav>
 
+  <!-- Mobile navigation -->
+  <div class="nav-mobile">
+    <div class="nav-logo">
+      <img src="assets/shield.png" alt="Logo" />
+      <span>SafeLM</span>
+    </div>
+    <button class="hamburger">☰</button>
+  </div>
+  
+  <div class="mobile-menu">
+    <button class="close-menu">✕</button>
+    <a href="#hero">Home</a>
+    <a href="#models">Models</a>
+    <a href="#data">Datasets</a>
+    <a href="#eval">Evaluation</a>
+    <a href="assets/safety_pretraining.pdf">Paper</a>
+  </div>
+
   <!-- Hero / TLDR -->
   <section id="hero" style="background:var(--c-hero);">
     <div class="hero-title">
       <img src="assets/shield.png" alt="Logo" />
-      <h1>Safety Pretraining: Toward the Next Generation of Safe AI</h1>
+      <h1>Safety Pretraining: Toward the Next Generation of Safe AI</h1>
     </div>
     <p>
       <span id="authors">
@@ -153,15 +282,15 @@
       </span>
     </p>
     <p><span id="eq"><em>* Equal contribution</em></span></p>
-    <p><span id="tldr"><em>TL;DR – We embed safety directly into the pretraining pipeline with data‑centric interventions, delivering <strong>SafeLM</strong>, a 1.7B model family that is natively safe <u>before</u> any RLHF.<br/>Everything (code, data & weights) is <strong>open‑source</strong>.</em></span></p>
-    <!-- <a class="btn" href="https://huggingface.co/spaces/locuslab/safe-playground" target="_blank">🚀 Live Demo</a> -->
-    <a class="btn" href="assets/safety_pretraining.pdf" target="_blank">📄 Read the Paper</a>
-    <a class="btn" href="https://huggingface.co/locuslab" target="_blank">🔗 HuggingFace Hub</a>
+    <p><span id="tldr"><em>TL;DR – We embed safety directly into the pretraining pipeline with data‑centric interventions, delivering <strong>SafeLM</strong>, a 1.7B model family that is natively safe <u>before</u> any RLHF.<br/>Everything (code, data & weights) is <strong>open‑source</strong>.</em></span></p>
+    <!-- <a class="btn" href="https://huggingface.co/spaces/locuslab/safe-playground" target="_blank">🚀 Live Demo</a> -->
+    <a class="btn" href="assets/safety_pretraining.pdf" target="_blank">📄 Read the Paper</a>
+    <a class="btn" href="https://huggingface.co/locuslab" target="_blank">🔗 HuggingFace Hub</a>
   </section>
 
   <!-- Models -->
   <section id="models" style="background:var(--c-models);">
-    <h2>Models & Checkpoints</h2>
+    <h2>Models & Checkpoints</h2>
     <div class="grid">
       <div class="card">
         <h3>SafeLM‑1.7B</h3>
@@ -179,8 +308,8 @@
         <a class="btn" href="https://huggingface.co/locuslab/safelm-360m" target="_blank">Download</a>
       </div> -->
       <div class="card">
-        <h3>Safety Classifier</h3>
-        <p>Lightweight embedding-based model to score the safety of web text.</p>
+        <h3>Safety Classifier</h3>
+        <p>Lightweight embedding-based model to score the safety of web text.</p>
         <a class="btn" href="https://huggingface.co/locuslab/safety-classifier_gte-large-en-v1.5" target="_blank">Download</a>
       </div>
     </div>
@@ -196,12 +325,12 @@
         <a class="btn" href="https://huggingface.co/datasets/locuslab/refuseweb" target="_blank">Download</a>
       </div>
       <div class="card">
-        <h3>Moral Education</h3>
+        <h3>Moral Education</h3>
         <p>Context‑rich rewrites of harmful web text.</p>
         <a class="btn" href="https://huggingface.co/datasets/locuslab/moral_education" target="_blank">Download</a>
       </div>
       <div class="card">
-        <h3>Data Safety Report Cards</h3>
+        <h3>Data Safety Report Cards</h3>
         <p>Standardized report on the safety of any dataset release.</p>
         <!-- <a class="btn" href="https://huggingface.co/spaces/locuslab/data-report-card" target="_blank">Explore</a> -->
         <a class="btn" href="#" onclick="event.preventDefault()">Stay Tuned!</a>
@@ -216,31 +345,55 @@
       <div class="card">
         <h3>SafeLM Demo</h3>
         <p>Chat with SafeLM and probe edge‑cases live.</p>
-        <a class="btn" href="TODO" target="_blank">Open Playground</a>
+        <a class="btn" href="TODO" target="_blank">Open Playground</a>
       </div>
     </div>
   </section> -->
 
   <!-- Evaluation & Tools -->
   <section id="eval" style="background:var(--c-eval);">
-    <h2>Evaluation & Code</h2>
+    <h2>Evaluation & Code</h2>
     <div class="grid">
       <div class="card">
-        <h3>Safety Benchmarks</h3>
-        <p>Base Model Safety Evaluations</p>
+        <h3>Safety Benchmarks</h3>
+        <p>Base Model Safety Evaluations</p>
         <a class="btn" href="https://huggingface.co/datasets/locuslab/jb-completions" target="_blank">Download</a>
       </div>
       <div class="card">
-        <h3>Training Code</h3>
-        <p>Reproducible LitGPT recipes & configs.</p>
-        <a class="btn" href="https://github.com/locuslab/litgpt_safety" target="_blank">GitHub Repo</a>
+        <h3>Training Code</h3>
+        <p>Reproducible LitGPT recipes & configs.</p>
+        <a class="btn" href="https://github.com/locuslab/litgpt_safety" target="_blank">GitHub Repo</a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    Made with ❤️ by the Safety Pretraining team · <a href="https://github.com/locuslab/safety-pretraining" target="_blank">GitHub</a>
+    Made with ❤️ by the Safety Pretraining team · <a href="https://github.com/locuslab/safety-pretraining" target="_blank">GitHub</a>
   </footer>
+
+  <!-- JavaScript for mobile menu -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburger = document.querySelector('.hamburger');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const closeMenu = document.querySelector('.close-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-menu a');
+      
+      hamburger.addEventListener('click', function() {
+        mobileMenu.classList.add('active');
+      });
+      
+      closeMenu.addEventListener('click', function() {
+        mobileMenu.classList.remove('active');
+      });
+      
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          mobileMenu.classList.remove('active');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
