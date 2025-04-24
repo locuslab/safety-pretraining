@@ -43,17 +43,27 @@
     }
     .nav a {font-weight: 600;}
     
-    /* Mobile navigation */
+    /* Mobile navigation - hidden by default */
     .nav-mobile {
       display: none;
     }
     .hamburger {
       display: none;
-      cursor: pointer;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      padding: 0.5rem;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: white;
+      padding: 2rem;
+      flex-direction: column;
+      gap: 1.5rem;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 200;
     }
     
     section {
@@ -160,22 +170,17 @@
       
       .hamburger {
         display: block;
+        cursor: pointer;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        padding: 0.5rem;
       }
       
+      /* The mobile menu display is now controlled by JavaScript */
       .mobile-menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: white;
-        padding: 2rem;
-        display: flex;
+        /* display: flex; <- removing this to avoid conflicts with JS */
         flex-direction: column;
-        gap: 1.5rem;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        z-index: 200;
       }
       
       .mobile-menu.active {
@@ -230,7 +235,6 @@
     <a href="#hero">Home</a>
     <a href="#models">Models</a>
     <a href="#data">Datasets</a>
-    <!-- <a href="#play">Playground</a> -->
     <a href="#eval">Evaluation</a>
     <a href="assets/safety_pretraining.pdf">Paper</a>
   </nav>
@@ -375,24 +379,71 @@
   <!-- JavaScript for mobile menu -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Get DOM elements with null checks
+      const navMobile = document.querySelector('.nav-mobile');
       const hamburger = document.querySelector('.hamburger');
       const mobileMenu = document.querySelector('.mobile-menu');
       const closeMenu = document.querySelector('.close-menu');
       const mobileLinks = document.querySelectorAll('.mobile-menu a');
       
-      hamburger.addEventListener('click', function() {
-        mobileMenu.classList.add('active');
+      // Only proceed if we have the required elements
+      if (!navMobile || !mobileMenu) return;
+      
+      // Safely set style with null check
+      function safeSetStyle(element, property, value) {
+        if (element && element.style) {
+          element.style[property] = value;
+        }
+      }
+      
+      // Hide mobile elements properly on desktop
+      function adjustForViewport() {
+        if (window.innerWidth > 768) {
+          // Desktop view - hide mobile elements
+          safeSetStyle(navMobile, 'display', 'none');
+          safeSetStyle(mobileMenu, 'display', 'none');
+        } else {
+          // Mobile view - show mobile nav but keep menu closed
+          safeSetStyle(navMobile, 'display', 'flex');
+          
+          // Only set display:flex if the menu isn't currently active/open
+          if (mobileMenu && !mobileMenu.classList.contains('active')) {
+            safeSetStyle(mobileMenu, 'display', 'flex');
+            safeSetStyle(mobileMenu, 'transform', 'translateX(100%)');
+          }
+        }
+      }
+      
+      // Run on page load
+      adjustForViewport();
+      
+      // Run on resize with debounce for performance
+      let resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(adjustForViewport, 100);
       });
       
-      closeMenu.addEventListener('click', function() {
-        mobileMenu.classList.remove('active');
-      });
-      
-      mobileLinks.forEach(link => {
-        link.addEventListener('click', function() {
-          mobileMenu.classList.remove('active');
+      // Event handlers with null checks
+      if (hamburger) {
+        hamburger.addEventListener('click', function() {
+          if (mobileMenu) mobileMenu.classList.add('active');
         });
-      });
+      }
+      
+      if (closeMenu) {
+        closeMenu.addEventListener('click', function() {
+          if (mobileMenu) mobileMenu.classList.remove('active');
+        });
+      }
+      
+      if (mobileLinks && mobileLinks.length) {
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            if (mobileMenu) mobileMenu.classList.remove('active');
+          });
+        });
+      }
     });
   </script>
 </body>
