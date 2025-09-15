@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Safety Pretraining – SafeLM</title>
+  <title>Safety Pretraining</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -273,6 +273,7 @@
         Yash Savani<sup>1</sup>,
         Yiding Jiang<sup>1</sup>,
         Andy Zou<sup>1,3,4</sup>,
+        Matt Fredrikson<sup>1,4</sup>,
         Zachary C. Lipton<sup>1</sup>,
         J. Zico Kolter<sup>1</sup>
       </span>
@@ -286,7 +287,7 @@
       </span>
     </p>
     <p><span id="eq"><em>* Equal contribution</em></span></p>
-    <p><span id="tldr"><em>TL;DR – We embed safety directly into the pretraining pipeline with data‑centric interventions, delivering <strong>SafeLM</strong>, a 1.7B model family that is natively safe <u>before</u> any RLHF.<br/>Everything (code, data & weights) is <strong>open‑source</strong>.</em></span></p>
+    <p><span id="tldr"><em>TL;DR – We embed safety directly into the pretraining pipeline with data‑centric interventions, delivering a 1.7B parameter model family that is natively safe.<br/>Everything (code, data & weights) is <strong>open‑source</strong>.</em></span></p>
     <!-- <a class="btn" href="https://huggingface.co/spaces/locuslab/safe-playground" target="_blank">🚀 Live Demo</a> -->
     <a class="btn" href="assets/safety_pretraining.pdf" target="_blank">📄 Read the Paper</a>
     <a class="btn" href="https://huggingface.co/locuslab" target="_blank">🔗 HuggingFace Hub</a>
@@ -298,14 +299,15 @@
     <div class="grid">
       <div class="card">
         <h3>SafeLM‑1.7B</h3>
-        <p>Natively-safe base model (1.7B parameters).</p>
-        <!-- <a class="btn" href="https://huggingface.co/locuslab/base-smollm2-1.7b-score0_20p_123rephrase_mild_45ref_45web_ref6x-600B-step-250000" target="_blank">Download</a> -->
-        <a href="#" class="btn" onclick="event.preventDefault()">Stay Tuned!</a>
+        <p>Natively-Safe Base Model</p>
+        <a class="btn" href="https://huggingface.co/locuslab/base-smollm2-1.7b-score0_20p_123rephrase_mild_45ref_45web_ref6x-600B-step-250000" target="_blank">Download</a>
+<!--         <a href="#" class="btn" onclick="event.preventDefault()">Stay Tuned!</a> -->
       </div>
       <div class="card">
         <h3>SafeLM‑1.7B-Instruct</h3>
-        <p>Instruction Tuned Model (1.7B parameters).</p>
-        <a href="#" class="btn" onclick="event.preventDefault()">Stay Tuned!</a>
+        <p>Instruction Tuned Model</p>
+        <a class="btn" href="https://huggingface.co/locuslab/base-smollm2-1.7b-score0_20p_123rephrase_mild_45ref_45web_ref6x-600B-step-250000" target="_blank">Download</a>
+<!--         <a href="#" class="btn" onclick="event.preventDefault()">Stay Tuned!</a> -->
       </div>
       <!-- <div class="card">
         <h3>SafeLM‑360M</h3>
@@ -334,12 +336,12 @@
         <p>Context‑rich rewrites of harmful web text.</p>
         <a class="btn" href="https://huggingface.co/datasets/locuslab/moral_education" target="_blank">Download</a>
       </div>
-      <div class="card">
+<!--       <div class="card">
         <h3>Data Safety Report Cards</h3>
         <p>Standardized report on the safety of any dataset release.</p>
         <!-- <a class="btn" href="https://huggingface.co/spaces/locuslab/data-report-card" target="_blank">Explore</a> -->
         <a class="btn" href="#" onclick="event.preventDefault()">Stay Tuned!</a>
-      </div>
+      </div> -->
     </div>
   </section>
 
@@ -360,8 +362,8 @@
     <h2>Evaluation & Code</h2>
     <div class="grid">
       <div class="card">
-        <h3>Safety Benchmarks</h3>
-        <p>Base Model Safety Evaluations</p>
+        <h3>Base Model Safety Benchmarks</h3>
+        <p>Completion-style Safety Evaluations</p>
         <a class="btn" href="https://huggingface.co/datasets/locuslab/jb-completions" target="_blank">Download</a>
       </div>
       <div class="card">
